@@ -15,95 +15,68 @@
  *    - xaringan wiki: https://github.com/yihui/xaringan/wiki
  *    - remarkjs wiki: https://github.com/gnab/remark/wiki
  *
- *  Version: 0.3.4
+ *  Version: 0.4.0
  *
  * ------------------------------------------------------- */
-@import url(https://fonts.googleapis.com/css?family=Montserrat:300,300i&display=swap);
-@import url(https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Work+Sans:300,300i&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Jost&display=swap);
 @import url(https://fonts.googleapis.com/css?family=Fira+Code&display=swap);
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Ubuntu:wght@500&display=swap');
 
 
 :root {
   /* Fonts */
-  --text-font-family: Open Sans;
+  --text-font-family: 'Work Sans';
   --text-font-is-google: 1;
   --text-font-family-fallback: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial;
   --text-font-base: sans-serif;
-  --header-font-family: 'Josefin Sans';
+  --header-font-family: Jost;
   --header-font-is-google: 1;
   --header-font-family-fallback: Georgia, serif;
-  --code-font-family: 'Fira Mono';  /* font para códigos inlines `` */
-  /*--code-font-family: 'Fira Code';*/
+  --code-font-family: 'Fira Code';
   --code-font-is-google: 1;
-  --base-font-size: 20px;
+  --base-font-size: 25px;
   --text-font-size: 1rem;
-  --code-font-size: 1rem;
-  --code-inline-font-size: 1.2em;
+  --code-font-size: 0.9rem;
+  --code-inline-font-size: 1em;
   --header-h1-font-size: 2.75rem;
   --header-h2-font-size: 2.25rem;
   --header-h3-font-size: 1.75rem;
 
-
-
   /* Colors */
-  --text-color: #000;  /* cor do texto será preta*/
-  --header-color: #a11647; /* cor dos titulos*/
-  --header-h2-color: #a11647; /* cor dos titulos*/
-  --header-h3-color: #a11647; /* cor dos titulos*/
-  --background-color: white;
-  --link-color: rgb(249, 38, 114); /* cor dos links - rosa*/
-  --code-highlight-color: rgba(255,255,0,0);
-  --inverse-text-color: #a11647;
-  --inverse-background-color: #FAD7A0;
-  --inverse-header-color: #a11647;
-  --inverse-h3-header-color: #0000ff;
-  --inverse-link-color: rgb(249, 38, 114);
-  --borda-slide-background-color: #FAD7A0;
-  /*--title-slide-text-color: #274e13;*/
-  --title-slide-text-color: #114673;
-  --title-h2-slide-text-color: #b4456c;
-  --title-h3-slide-text-color: #b4456c;
-  --header-background-color: #a11647;
-  --header-background-text-color: white;
+  --text-color: #000000;
+  --header-color: #af1313;
+  --background-color: #FFFFFF;
+  --link-color: #af1313;
+  --text-bold-color: #af1313;
+  --code-highlight-color: rgba(255,255,0,0.5);
+  --inverse-text-color: #af1313;
+  --inverse-background-color: #a7a3b4;
+  --inverse-header-color: #af1313;
+  --inverse-link-color: #af1313;
+  --title-slide-background-color: #af1313;
+  --title-slide-text-color: #FFFFFF;
+  --header-background-color: #af1313;
+  --header-background-text-color: #FFFFFF;
+  --primary: #af1313;
+  --secondary: #a7a3b4;
+  --white: #FFFFFF;
+  --black: #000000;
 }
 
-
-
-/* Modifica toda estrutura do documento - todos os slides*/
 html {
   font-size: var(--base-font-size);
 }
-
-
 
 body {
   font-family: var(--text-font-family), var(--text-font-family-fallback), var(--text-font-base);
   font-weight: 300;
   color: var(--text-color);
-  text-align: justify;
-
 }
-
-
-
-h1, h2 {
+h1, h2, h3 {
   font-family: var(--header-font-family), var(--header-font-family-fallback);
   font-weight: 600;
   color: var(--header-color);
 }
-
-
-h3 {
-  font-family: var(--header-font-family), var(--header-font-family-fallback);
-  font-weight: 600;
-  color: var(--header-h3-color);
-  text-align: center;
-}
-
-
-/* Conteudo dos slides */
 .remark-slide-content {
   background-color: var(--background-color);
   font-size: 1rem;
@@ -111,7 +84,6 @@ h3 {
   width: 100%;
   height: 100%;
 }
-
 .remark-slide-content h1 {
   font-size: var(--header-h1-font-size);
 }
@@ -121,42 +93,29 @@ h3 {
 .remark-slide-content h3 {
   font-size: var(--header-h3-font-size);
 }
-
-
-/* Relacionado aos codigos R no chunck e o inline */
 .remark-code, .remark-inline-code {
-  font-family: var(--code-font-family), Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace; Open Sans;
-  /*background-color:lightgray;*/
+  font-family: var(--code-font-family), Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
 }
-
-
-/* codigo dentro do chunck*/
 .remark-code {
   font-size: var(--code-font-size);
-  color: blue;
 }
-
-/* codigo dentro no texto usando `` */
 .remark-inline-code {
-  font-family: ;
   font-size: var(--code-inline-font-size);
-  color: #1a68ad;
+  color: #af1313;
 }
-
-
-/* Número do slide*/
 .remark-slide-number {
-  color: #a11647;
+  color: #af1313;
   opacity: 1;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
-
+strong {
+  font-weight: bold;
+  color: var(--text-bold-color);
+}
 a, a > code {
   color: var(--link-color);
   text-decoration: none;
 }
-
-
 .footnote {
   position: absolute;
   bottom: 60px;
@@ -166,108 +125,33 @@ a, a > code {
 .remark-code-line-highlighted {
   background-color: var(--code-highlight-color);
 }
-
-
-
-
-/* O que tem o nome .inverse é da capa */
-
-
 .inverse {
-  background-image: url(capaSlide.png);
-  background-size: cover;
-  /*background-color: var(--inverse-background-color);*/
-  /*opacity: 0.2;
+  background-color: var(--inverse-background-color);
   color: var(--inverse-text-color);
-  text-shadow: 0 0 20px #333;*/
+  
 }
-
-
-/* Listas laranjas dos top e bottom */
-/*.inverse {
-  border-top: 20px solid var(--borda-slide-background-color);
-  border-bottom: 20px solid var(--borda-slide-background-color);
-  letter-spacing: 5px;
-}
-
-
-/*.inverse {
-  border-left: 20px solid #E67E22;
-}
-
-.inverse {
-  border-right: 20px solid #E67E22;
-}*/
-
-
-/*.inverse h1, .inverse h2, .inverse h3 {
+.inverse h1, .inverse h2, .inverse h3 {
   color: var(--inverse-header-color);
-  font-size: 5em;
-}*/
-
-.inverse h1 {
-  font-family: 'Ubuntu', sans-serif;
-  font-size: 4em;
-  text-align: right;
-  padding-top: 1px ;
-  padding-right: 80px;
 }
-
-.inverse h2 {
-  font-family: 'Ubuntu', sans-serif;
-  padding-right: 100px;
-  text-align: right;
-  font-size: 3em;
-}
-
-.inverse h3 {
-  font-family: 'Ubuntu', sans-serif;
-  padding-right: 100px;
-  text-align: right;
-  font-size: 1.3em;
-}
-
 .inverse a, .inverse a > code {
   color: var(--inverse-link-color);
 }
-
-
-
-
-
-/*Títulos da Capa*/
-
-/*.title-slide, .title-slide h1, .title-slide h2, .title-slide h3 {
+.title-slide, .title-slide h1, .title-slide h2, .title-slide h3 {
   color: var(--title-slide-text-color);
-}*/
-
-
-.title-slide h1 {
-  color: #a11647;
-  font-size: 2.6em;
 }
-
-.title-slide h2 {
-  color: var(--title-h2-slide-text-color);
+.title-slide {
+  background-color: var(--title-slide-background-color);
+  background-image: url("img/hex-xaringan.png");
+  background-size: 300;
+  background-position: right;
+  vertical-align: bottom !important; 
+  text-align: left !important;
+  
 }
-
-.title-slide h3 {
-  color: #b4456c;
-}
-
-/*background do slide inicial - da capa*/
-/*.title-slide {
-  background-color: var(--title-slide-background-color);*/
-  /*background-color: white;
-  background-position: top;
-  padding: 30px}*/
-
-
-/*.title-slide .remark-slide-number {
+.title-slide .remark-slide-number {
   display: none;
+  text-align: left;
 }
-
-
 /* Two-column layout */
 .left-column {
   width: 20%;
@@ -275,10 +159,10 @@ a, a > code {
   float: left;
 }
 .left-column h2, .left-column h3 {
-  color: #777;
+  color: #af131399;
 }
 .left-column h2:last-of-type, .left-column h3:last-child {
-  color: #000;
+  color: #af1313;
 }
 .right-column {
   width: 75%;
@@ -300,7 +184,7 @@ img, video, iframe {
   max-width: 100%;
 }
 blockquote {
-  border-left: solid 5px lightgray;
+  border-left: solid 5px #a7a3b480;
   padding-left: 1em;
 }
 .remark-slide table {
@@ -315,7 +199,7 @@ th, td {
   padding: 5px;
 }
 .remark-slide thead, .remark-slide tfoot, .remark-slide tr:nth-child(even) {
-  background: #eee;
+  background: #EDECF0;
 }
 table.dataTable tbody {
   background-color: var(--background-color);
@@ -325,7 +209,7 @@ table.dataTable.display tbody tr.odd {
   background-color: var(--background-color);
 }
 table.dataTable.display tbody tr.even {
-  background-color: #eee;
+  background-color: #EDECF0;
 }
 table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   background-color: rgba(255, 255, 255, 0.5);
@@ -365,4 +249,27 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   }
 }
 
-
+.primary {
+  color: var(--primary);
+}
+.bg-primary {
+  background-color: var(--primary);
+}
+.secondary {
+  color: var(--secondary);
+}
+.bg-secondary {
+  background-color: var(--secondary);
+}
+.white {
+  color: var(--white);
+}
+.bg-white {
+  background-color: var(--white);
+}
+.black {
+  color: var(--black);
+}
+.bg-black {
+  background-color: var(--black);
+}
