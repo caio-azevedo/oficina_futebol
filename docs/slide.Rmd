@@ -9,7 +9,7 @@ output:
   xaringan::moon_reader:
     lib_dir: libs
     #chakra: libs/remark-latest.min.js
-    css: [css/xaringan-themer.css]
+    css: [xaringan-themer.css]
     nature:
       ratio: 18:10
       highlightStyle: github
