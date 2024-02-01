@@ -25,6 +25,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE,
                       warning = FALSE)
 library(magick)
 library(fontawesome)
+library(tidyverse)
 
 ```
 
@@ -45,8 +46,8 @@ xaringan_logo <- file.path(
 )
 xaringanExtra::use_logo(
   image_url = xaringan_logo, 
-  position = xaringanExtra::css_position(top = NULL, right = '1em', 
-                                         left = NULL, bottom = '1em')
+  position = xaringanExtra::css_position(top = '1em', right = '1em', 
+                                         left = NULL, bottom = NULL)
 )
 ```
 
@@ -84,19 +85,482 @@ plot(qrcode::qr_code(url, ecl = 'M'), col = c('white', '#261373'))
 
 ```
 
-
 ---
-class: center, middle, animated slideInRight fadeOutLeft, animated slideInRight fadeOutLeft
+class: middle, animated slideInRight fadeOutLeft, animated slideInRight fadeOutLeft
 
-# Introdução
+# Porque estudar o futebol?
 
----
+* Além de fenômeno de interesse social e econômico, o futebol e os esportes em geral, tem mostrado ser uma área densa para pesquisas científicas, por permitir uma gama de análises pela regularidade, variabilidade e alta frequência de dados (Ter Weel, 2011). 
 
-# Teste
-
-
+* Dados provenientes dos esportes podem fornecer informações importantes sobre o comportamento do mercado de trabalho, sendo valioso laboratório. (Szymanski, 2003; Kahn, 2000)
 
 
 ---
 
+# A base de dados
 
+```{r, echo=FALSE}
+rm(list=ls())
+url <- "https://raw.githubusercontent.com/williamorim/brasileirao/master/data-raw/csv/matches.csv"
+
+dados <- readr::read_csv(url)
+knitr::kable(head(dados), format = 'html')
+```
+
+* Extraída a partir do pacote "brasileirao" e contendo 8.406 observações e 6 variáveis.
+
+---
+
+# Objetivo
+
+* Nosso objetivo então é transformar esse conjunto de dados, de forma a fornecer a colocação de cada time rodada por rodada, durante as temporadas de 2003 até a mais recente que foi a temporada 2023.
+
+* É fácil perceber que para alcançarmos tal objetivo teremos de fazer manipulações nos dados, de forma a obter variáveis que ainda não estão explicítas na base de dados, como número de pontos, gols a favor, gols contra etc.
+
+* Para esta finalidade faremos uso da programação em linguagem R.
+
+---
+
+# Manipulação de dados
+
+* Assim como em tarefas do dia a dia, existem diversas formas de escrever o código para que possamos alcançar nosso objetivo.
+
+* É comum escutar que o "melhor" código  ou mais "eficiente" é aquele que possui o menor número de linhas de comando, no entanto, isso não é unanimidade, visto que se alcançarmos o objetivo, independente da forma, fomos eficientes.
+
+* No entanto, ter um "código limpo" é de fato desejável, mas isso não está estritamente relacionado ao número de linhas de comando, mas sim com a questão de organização e estruturação.
+
+* É neste sentido, que então podemos dizer que códigos mais reduzidos facilitam na organização e a estruturação do script.
+
+
+---
+
+# Manipulação de dados
+
+* A forma que escrevemos nosso código está fortemente relacionada a nossa prática enquanto usuários.
+
+* Usuários mais experientes obviamente terão uma gama de informações já processadas, de forma a conseguir resolver certos problemas com menos dispêndio.
+
+* Usuários novos tendem a querer resolver os problemas apenas com as ferramentas (funções e/ou pacotes) que conhece e acabam tendo um percurso maior para a resolução do mesmo problema.
+
+* Aqui iremos tentar evidenciar isso, e portanto, fazer de duas formas: uma onde iremos utilizar um número menor de ferramentas, aproximando-se de um usuário novo e a outra fazendo uso de um conjunto maior de possibilidades da linguagem R, propiciando a comparação entre estas.
+
+---
+
+# Início
+
+* Novamente deixando claro que existem diversas formas de resolvermos o problema proposto, mas aqui iremos propor apenas duas destas.
+
+* Começaremos pela variável "score", ou seja, o placar da partida. Observe que ela é um caractere, do tipo "2x0", logo precisamos atribuir o valor 2 ao time mandante e o valor 0 ao time visitante, eliminando o "x".
+
+```{r, echo = F}
+glimpse(dados)
+```
+---
+
+## Trabalhando o "score" - com R base
+
+* Muitos usuários que estão iniciando no R, tiveram algum contato com o Excel. Uma função bastante comum do Excel é o "DIREITA" e "ESQUERDA", ou seja, o raciocínio seria pegar o primeiro valor da direita e também o primeiro valor da esquerda.
+
+* No R poderíamos utilizar a função *substr*, exemplo:
+
+```{r}
+gols_mandante <- substr(x="2x0", start = 1, stop =1)
+gols_mandante
+
+gols_visitante <- substr(x="2x0", start = 3, stop =3)
+gols_visitante
+```
+
+---
+
+## Trabalhando o "score" - com R base
+
+```{r}
+gols_mandante <- substr(dados$score,start = 1, stop = 1)
+gols_visitante <- substr(dados$score,start = 3, stop = 3)
+
+tabela1 <- cbind(dados, gols_mandante, gols_visitante) # empilhar colunas
+
+tabela1 <- subset(tabela1, select = -c(score)) # excluir coluna
+```
+```{r, echo = F}
+knitr::kable(head(tabela1, n = 3L), format = 'html')
+```
+
+* É importante apenas garantir que não exista um placar com 10 ou mais gols.
+
+
+---
+## Trabalhando o "score" - com tidyverse
+
+```{r}
+library(tidyverse)
+
+tabela2 <- dados |> 
+  tidyr::separate_wider_delim(
+    cols = score,
+    delim = "x",
+    names = c("gols_mandante", "gols_visitante"))
+```
+```{r, echo=F}
+knitr::kable(head(tabela2, n = 3L), format = 'html')
+```
+---
+ 
+## Tornando as novas variáveis em numéricas
+* com R base
+
+```{r}
+tabela1$gols_mandante <- as.numeric(tabela1$gols_mandante)
+tabela1$gols_visitante <- as.numeric(tabela1$gols_visitante)
+```
+```{r, echo=FALSE}
+glimpse(tabela1)
+```
+
+
+---
+## Tornando as novas variáveis em numéricas
+
+* com dplyr
+```{r}
+tabela1 <- tabela1 |> 
+  dplyr::mutate(gols_mandante = as.numeric(gols_mandante),
+                gols_visitante = as.numeric(gols_visitante))
+```
+
+```{r, echo=F}
+glimpse(tabela1)
+```
+
+---
+
+## Criando a coluna de pontos - com R base
+
+* Vamos começar pelos pontos do time que é o mandante do jogo.
+
+```{r}
+tabela1$pontos_mandante <- ifelse(gols_mandante > gols_visitante, 3 , 
+                              ifelse(gols_mandante == gols_visitante,1, 0))
+```
+```{r, echo=F}
+
+knitr::kable(head(tabela1[,4:8], n = 5L), format = 'html')
+```
+
+---
+
+## Criando a coluna de pontos - com R base
+
+* O mesmo procedimento agora para o time visitante:
+
+```{r}
+tabela1$pontos_visitante <- ifelse(gols_mandante > gols_visitante, 0 , 
+                              ifelse(gols_mandante == gols_visitante,1, 3))
+```
+```{r, echo=F}
+
+knitr::kable(head(tabela1[,4:9], n = 5L), format = 'html')
+```
+
+---
+
+## Criando a coluna de pontos - com dplyr
+
+* Vamos começar pelos pontos do time que é o mandante do jogo.
+
+```{r}
+tabela2 <- tabela2 |> 
+dplyr::mutate(pontos_mandante = dplyr::case_when(
+    gols_mandante > gols_visitante ~ 3,
+    gols_mandante == gols_visitante ~ 1,
+    TRUE ~ 0), .after = home)
+```
+```{r, echo=F}
+
+knitr::kable(head(tabela2[,4:8], n = 3L), format = 'html')
+```
+
+---
+
+## Criando a coluna de pontos - com dplyr
+
+* O mesmo procedimento agora para o time visitante:
+
+```{r}
+tabela2 <- tabela2 |> 
+dplyr::mutate(pontos_visitante = dplyr::case_when(
+    gols_mandante > gols_visitante ~ 0,
+    gols_mandante == gols_visitante ~ 1,
+    TRUE ~ 3), .after = away)
+
+```
+```{r, echo=F}
+
+knitr::kable(head(tabela2[,4:9], n = 2L), format = 'html')
+```
+
+---
+
+## Reordenando as colunas - com R base
+
+```{r}
+tabela1 <- subset(tabela1, select = c(id_match, season, date, 
+                                      home, pontos_mandante,
+                                      gols_mandante, away,
+                                      pontos_visitante,
+                                      gols_visitante))
+```
+
+```{r, echo=F}
+
+knitr::kable(head(tabela1[4:9], n = 2L), format = 'html')
+```
+
+---
+## Reordenando as colunas - com dplyr
+
+* Note que apenas a variável *gols_visitante* não está na posição que gostaríamos.
+
+```{r, echo=F}
+
+knitr::kable(head(tabela2[4:9], n = 2L), format = 'html')
+```
+
+* Isso se deve por termos utilizado o argumento *.after* na função *mutate* anteriormente.
+
+* Acrescenta-se que também poderíamos utilizar o argumento *.before*
+---
+
+## Reordenando as colunas - com dplyr
+
+```{r}
+tabela2 <- tabela2 |> 
+  dplyr::relocate(gols_visitante, .after = pontos_visitante) 
+```
+
+```{r, echo=F}
+knitr::kable(head(tabela2[4:9], n = 2L), format = 'html')
+```
+
+---
+
+## Pivotear ou não?
+
+```{r, echo=F}
+library(kableExtra)
+knitr::kable(head(tabela1, n = 2L), format = 'html') |> 
+  kable_styling() |> 
+  row_spec(row = 0, extra_css = "font-size: 18px;")
+```
+* Note que cada observação deste conjunto de dados é um jogo de 2 times, neste sentido, precisamos duplicar cada linha desta base.
+
+* Só é imprescendível ter uma coluna que guarde qual time foi o mandante e qual foi o visitante.
+
+---
+
+## Duplicando as linhas
+
+```{r}
+aux_mandante <- cbind(tabela1,mando=c("mandante"))
+aux_visitante <- cbind(tabela1,mando=c("visitante"))
+
+tabela1 <- rbind(aux_mandante,aux_visitante)
+
+tabela1 <- tabela1[order(tabela1$id_match, tabela1$mando),]
+```
+
+```{r, echo=F}
+knitr::kable(head(tabela1, n = 2L), format = 'html',
+          row.names = F) |> 
+  kable_styling() |> 
+  row_spec(row = 0, extra_css = "font-size: 12px;")
+```
+* Agora precisamos criar duas coluna **time** e **adversario**, de modo a deixar que cada linha represente um clube, na primeira linha **time** será "Athletico PR" e **adversario** será "Grêmio", enquanto na segunda linha isso se inverte, **time** será "Grêmio" e **adversario** será "Athletico PR".
+
+---
+
+## Criando as colunas *time* e *adversario*
+
+```{r}
+time <- ifelse(tabela1$mando=="mandante",tabela1$home,
+               tabela1$away)
+adversario <- ifelse(tabela1$mando=="visitante",tabela1$home,
+                  tabela1$away)
+
+tabela1$home <- time
+tabela1$away <- adversario
+
+```
+
+```{r, echo=F}
+knitr::kable(head(tabela1, n = 2L), format = 'html',
+          row.names = F) |> 
+  kable_styling() |> 
+  row_spec(row = 0, extra_css = "font-size: 12px;")
+```
+
+---
+
+## Renomeando as colunas *time* e *adversario*
+
+```{r}
+colnames(tabela1)[colnames(tabela1)=="home"] <- "time"
+colnames(tabela1)[colnames(tabela1)=="away"] <- "adversario"
+
+
+```
+
+```{r, echo=F}
+knitr::kable(head(tabela1, n = 4L), format = 'html',
+          row.names = F) |> 
+  kable_styling() |> 
+  row_spec(row = 0, extra_css = "font-size: 12px;")
+```
+
+---
+
+## Criando as colunas *gols_favor* e *gols_contra*
+
+```{r}
+gols_favor <- ifelse(tabela1$mando=="mandante", tabela1$gols_mandante,tabela1$gols_visitante)
+
+gols_contra <- ifelse(tabela1$mando=="visitante", tabela1$gols_mandante,tabela1$gols_visitante)
+
+tabela1$gols_mandante <- gols_favor
+tabela1$gols_visitante <- gols_contra
+```
+
+```{r, echo=F}
+knitr::kable(head(tabela1, n = 2L), format = 'html',
+          row.names = F) |> 
+  kable_styling() |> 
+  row_spec(row = 0, extra_css = "font-size: 12px;")
+```
+---
+
+## Renomeando as colunas *gols_favor* e *gols_contra*
+
+```{r}
+colnames(tabela1)[colnames(tabela1)=="gols_mandante"] <- "gols_favor"
+colnames(tabela1)[colnames(tabela1)=="gols_visitante"] <- "gols_contra"
+```
+
+```{r, echo=F}
+knitr::kable(head(tabela1, n = 2L), format = 'html',
+          row.names = F) |> 
+  kable_styling() |> 
+  row_spec(row = 0, extra_css = "font-size: 12px;")
+```
+
+* Agora precisamos criar uma coluna com os pontos conquistados por cada time.
+
+
+---
+
+## Criando a variável *pontos*
+
+```{r}
+pontos <- ifelse(tabela1$mando=="mandante",tabela1$pontos_mandante,tabela1$pontos_visitante)
+
+tabela1$pontos_mandante <- pontos
+colnames(tabela1)[colnames(tabela1)=="pontos_mandante"] <- "pontos"
+
+tabela1 <- subset(tabela1, select = -c(pontos_visitante))
+```
+
+```{r, echo=F}
+knitr::kable(head(tabela1, n = 4L), format = 'html',
+          row.names = F) |> 
+  kable_styling() |> 
+  row_spec(row = 0, extra_css = "font-size: 12px;")
+```
+
+ 
+---
+## Pivotear ou não?
+
+* Nossa estratégia inicial foi em não pivotear, no entanto, poderíamos ter optador em utilizar a função *pivot_longer*. A base de dados anteriormente estava da seguinte maneira:
+
+```{r, echo=F}
+library(kableExtra)
+knitr::kable(head(tabela2, n = 2L), format = 'html') |> 
+  kable_styling() |> 
+  row_spec(row = 0, extra_css = "font-size: 12px;")
+```
+* Procederemos da mesma forma, porém, com o uso do pacote *tidyr*.
+
+---
+
+## Duplicando as linhas - com tidyr
+
+```{r}
+tabela2 <- tabela2 |> 
+  tidyr::pivot_longer( cols = c(pontos_mandante, pontos_visitante),
+    names_to = "mando", values_to = "pontos") |> 
+  dplyr::mutate(mando = stringr::str_remove(mando, "pontos_"))
+  
+```
+```{r, echo=F}
+knitr::kable(head(tabela2, n = 2L), format = 'html') |> 
+  kable_styling() |> 
+  row_spec(row = 0, extra_css = "font-size: 12px;")
+```
+* É possível observar que duplicamos as linhas igual feito anteriormente, porém, já resolvemos a questão dos pontos.
+
+* Agora precisamos criar duas coluna time e adversario, de modo a deixar que cada linha represente um clube.
+
+---
+
+## Criando as colunas *time* e *adversario*
+
+```{r}
+tabela2 <- tabela2 |> 
+  dplyr::mutate(time = ifelse(mando == "mandante",home,away),
+    adversario = ifelse(mando == "mandante",away,home), .after = date) |> 
+  dplyr::select(-c(home,away))
+```
+
+```{r, echo=F}
+knitr::kable(head(tabela2, n = 4L), format = 'html') |> 
+  kable_styling() |> 
+  row_spec(row = 0, extra_css = "font-size: 12px;")
+```
+ 
+---
+
+## Criando as colunas *gols_favor* e *gols_contra*
+
+```{r}
+tabela2 <- tabela2 |> 
+dplyr::mutate(gols_favor = ifelse(mando == "mandante", gols_mandante, 
+                                  gols_visitante),
+    gols_contra = ifelse(mando == "mandante", gols_visitante, gols_mandante)) |> 
+  dplyr::select(-c(gols_mandante, gols_visitante))
+```
+
+```{r, echo=F}
+knitr::kable(head(tabela2, n = 2L), format = 'html') |> 
+  kable_styling() |> 
+  row_spec(row = 0, extra_css = "font-size: 12px;")
+```
+
+---
+
+## Comparando as tabelas
+
+* Tabela 1
+```{r, echo=F}
+knitr::kable(head(tabela1, n = 3L), format = 'html', 
+             row.names = F) |> 
+  kable_styling() |> 
+  row_spec(row = 0, extra_css = "font-size: 12px;")
+```
+
+* Tabela 2
+
+```{r, echo=F}
+knitr::kable(head(tabela2, n = 3L), format = 'html') |> 
+  kable_styling() |> 
+  row_spec(row = 0, extra_css = "font-size: 12px;")
+```

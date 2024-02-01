@@ -4,7 +4,7 @@
     <title>Oficina Futebol com o R</title>
     <meta charset="utf-8" />
     <meta name="author" content="Caio O. Azevedo" />
-    <meta name="date" content="2024-01-30" />
+    <meta name="date" content="2024-02-01" />
     <script src="libs/header-attrs-2.25/header-attrs.js"></script>
     <script src="libs/fabric-4.3.1/fabric.min.js"></script>
     <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
@@ -23,6 +23,8 @@
     <script src="libs/panelset-0.2.6/panelset.js"></script>
     <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-progressBar-0.0.1/progress-bar.js"></script>
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -39,7 +41,7 @@ class: center, middle, inverse, title-slide
 ### NuPACE
 ]
 .date[
-### 2024-01-30
+### 2024-02-01
 ]
 
 ---
@@ -64,7 +66,7 @@ background-image: url(https://raw.githubusercontent.com/rstudio/hex-stickers/mas
 background-size: contain;
 background-repeat: no-repeat;
 position: absolute;
-right:1em;bottom:1em;
+top:1em;right:1em;
 }
 </style>
 <script>(function () {
@@ -121,22 +123,1436 @@ Para acessar esse documento:
 
 &lt;img src="index_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" /&gt;
 
-
 ---
-class: center, middle, animated slideInRight fadeOutLeft, animated slideInRight fadeOutLeft
+class: middle, animated slideInRight fadeOutLeft, animated slideInRight fadeOutLeft
 
-# Introdução
+# Porque estudar o futebol?
 
----
+* Além de fenômeno de interesse social e econômico, o futebol e os esportes em geral, tem mostrado ser uma área densa para pesquisas científicas, por permitir uma gama de análises pela regularidade, variabilidade e alta frequência de dados (Ter Weel, 2011). 
 
-# Teste
-
-
+* Dados provenientes dos esportes podem fornecer informações importantes sobre o comportamento do mercado de trabalho, sendo valioso laboratório. (Szymanski, 2003; Kahn, 2000)
 
 
 ---
 
+# A base de dados
 
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; id_match &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; season &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; date &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; home &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; score &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; away &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2x0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Guarani &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4x2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vasco da Gama &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-30 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Corinthians &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0x3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Atlético MG &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-30 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Goiás &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2x2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Paysandu &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-30 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Criciúma &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2x0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Fluminense &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-30 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Cruzeiro &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2x2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; São Caetano &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+* Extraída a partir do pacote "brasileirao" e contendo 8.406 observações e 6 variáveis.
+
+---
+
+# Objetivo
+
+* Nosso objetivo então é transformar esse conjunto de dados, de forma a fornecer a colocação de cada time rodada por rodada, durante as temporadas de 2003 até a mais recente que foi a temporada 2023.
+
+* É fácil perceber que para alcançarmos tal objetivo teremos de fazer manipulações nos dados, de forma a obter variáveis que ainda não estão explicítas na base de dados, como número de pontos, gols a favor, gols contra etc.
+
+* Para esta finalidade faremos uso da programação em linguagem R.
+
+---
+
+# Manipulação de dados
+
+* Assim como em tarefas do dia a dia, existem diversas formas de escrever o código para que possamos alcançar nosso objetivo.
+
+* É comum escutar que o "melhor" código  ou mais "eficiente" é aquele que possui o menor número de linhas de comando, no entanto, isso não é unanimidade, visto que se alcançarmos o objetivo, independente da forma, fomos eficientes.
+
+* No entanto, ter um "código limpo" é de fato desejável, mas isso não está estritamente relacionado ao número de linhas de comando, mas sim com a questão de organização e estruturação.
+
+* É neste sentido, que então podemos dizer que códigos mais reduzidos facilitam na organização e a estruturação do script.
+
+
+---
+
+# Manipulação de dados
+
+* A forma que escrevemos nosso código está fortemente relacionada a nossa prática enquanto usuários.
+
+* Usuários mais experientes obviamente terão uma gama de informações já processadas, de forma a conseguir resolver certos problemas com menos dispêndio.
+
+* Usuários novos tendem a querer resolver os problemas apenas com as ferramentas (funções e/ou pacotes) que conhece e acabam tendo um percurso maior para a resolução do mesmo problema.
+
+* Aqui iremos tentar evidenciar isso, e portanto, fazer de duas formas: uma onde iremos utilizar um número menor de ferramentas, aproximando-se de um usuário novo e a outra fazendo uso de um conjunto maior de possibilidades da linguagem R, propiciando a comparação entre estas.
+
+---
+
+# Início
+
+* Novamente deixando claro que existem diversas formas de resolvermos o problema proposto, mas aqui iremos propor apenas duas destas.
+
+* Começaremos pela variável "score", ou seja, o placar da partida. Observe que ela é um caractere, do tipo "2x0", logo precisamos atribuir o valor 2 ao time mandante e o valor 0 ao time visitante, eliminando o "x".
+
+
+```
+## Rows: 8,406
+## Columns: 6
+## $ id_match &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18…
+## $ season   &lt;dbl&gt; 2003, 2003, 2003, 2003, 2003, 2003, 2003, 2003, 2003, 2003, 2…
+## $ date     &lt;date&gt; 2003-03-29, 2003-03-29, 2003-03-30, 2003-03-30, 2003-03-30, …
+## $ home     &lt;chr&gt; "Athletico PR", "Guarani", "Corinthians", "Goiás", "Criciúma"…
+## $ score    &lt;chr&gt; "2x0", "4x2", "0x3", "2x2", "2x0", "2x2", "1x1", "0x0", "1x1"…
+## $ away     &lt;chr&gt; "Grêmio", "Vasco da Gama", "Atlético MG", "Paysandu", "Flumin…
+```
+---
+
+## Trabalhando o "score" - com R base
+
+* Muitos usuários que estão iniciando no R, tiveram algum contato com o Excel. Uma função bastante comum do Excel é o "DIREITA" e "ESQUERDA", ou seja, o raciocínio seria pegar o primeiro valor da direita e também o primeiro valor da esquerda.
+
+* No R poderíamos utilizar a função *substr*, exemplo:
+
+
+```r
+gols_mandante &lt;- substr(x="2x0", start = 1, stop =1)
+gols_mandante
+```
+
+```
+## [1] "2"
+```
+
+```r
+gols_visitante &lt;- substr(x="2x0", start = 3, stop =3)
+gols_visitante
+```
+
+```
+## [1] "0"
+```
+
+---
+
+## Trabalhando o "score" - com R base
+
+
+```r
+gols_mandante &lt;- substr(dados$score,start = 1, stop = 1)
+gols_visitante &lt;- substr(dados$score,start = 3, stop = 3)
+
+tabela1 &lt;- cbind(dados, gols_mandante, gols_visitante) # empilhar colunas
+
+tabela1 &lt;- subset(tabela1, select = -c(score)) # excluir coluna
+```
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; id_match &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; season &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; date &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; home &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; away &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; gols_mandante &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; gols_visitante &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Guarani &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vasco da Gama &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-30 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Corinthians &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Atlético MG &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+* É importante apenas garantir que não exista um placar com 10 ou mais gols.
+
+
+---
+## Trabalhando o "score" - com tidyverse
+
+
+```r
+library(tidyverse)
+
+tabela2 &lt;- dados |&gt; 
+  tidyr::separate_wider_delim(
+    cols = score,
+    delim = "x",
+    names = c("gols_mandante", "gols_visitante"))
+```
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; id_match &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; season &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; date &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; home &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; gols_mandante &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; gols_visitante &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; away &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Guarani &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vasco da Gama &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-30 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Corinthians &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Atlético MG &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+---
+ 
+## Tornando as novas variáveis em numéricas
+* com R base
+
+
+```r
+tabela1$gols_mandante &lt;- as.numeric(tabela1$gols_mandante)
+tabela1$gols_visitante &lt;- as.numeric(tabela1$gols_visitante)
+```
+
+```
+## Rows: 8,406
+## Columns: 7
+## $ id_match       &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, …
+## $ season         &lt;dbl&gt; 2003, 2003, 2003, 2003, 2003, 2003, 2003, 2003, 2003, 2…
+## $ date           &lt;date&gt; 2003-03-29, 2003-03-29, 2003-03-30, 2003-03-30, 2003-0…
+## $ home           &lt;chr&gt; "Athletico PR", "Guarani", "Corinthians", "Goiás", "Cri…
+## $ away           &lt;chr&gt; "Grêmio", "Vasco da Gama", "Atlético MG", "Paysandu", "…
+## $ gols_mandante  &lt;dbl&gt; 2, 4, 0, 2, 2, 2, 1, 0, 1, 2, 2, 1, 1, 0, 3, 0, 1, 6, 3…
+## $ gols_visitante &lt;dbl&gt; 0, 2, 3, 2, 0, 2, 1, 0, 1, 2, 2, 1, 1, 0, 1, 1, 2, 4, 3…
+```
+
+
+---
+## Tornando as novas variáveis em numéricas
+
+* com dplyr
+
+```r
+tabela1 &lt;- tabela1 |&gt; 
+  dplyr::mutate(gols_mandante = as.numeric(gols_mandante),
+                gols_visitante = as.numeric(gols_visitante))
+```
+
+
+```
+## Rows: 8,406
+## Columns: 7
+## $ id_match       &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, …
+## $ season         &lt;dbl&gt; 2003, 2003, 2003, 2003, 2003, 2003, 2003, 2003, 2003, 2…
+## $ date           &lt;date&gt; 2003-03-29, 2003-03-29, 2003-03-30, 2003-03-30, 2003-0…
+## $ home           &lt;chr&gt; "Athletico PR", "Guarani", "Corinthians", "Goiás", "Cri…
+## $ away           &lt;chr&gt; "Grêmio", "Vasco da Gama", "Atlético MG", "Paysandu", "…
+## $ gols_mandante  &lt;dbl&gt; 2, 4, 0, 2, 2, 2, 1, 0, 1, 2, 2, 1, 1, 0, 3, 0, 1, 6, 3…
+## $ gols_visitante &lt;dbl&gt; 0, 2, 3, 2, 0, 2, 1, 0, 1, 2, 2, 1, 1, 0, 1, 1, 2, 4, 3…
+```
+
+---
+
+## Criando a coluna de pontos - com R base
+
+* Vamos começar pelos pontos do time que é o mandante do jogo.
+
+
+```r
+tabela1$pontos_mandante &lt;- ifelse(gols_mandante &gt; gols_visitante, 3 , 
+                              ifelse(gols_mandante == gols_visitante,1, 0))
+```
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; home &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; away &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; gols_mandante &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; gols_visitante &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pontos_mandante &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Guarani &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vasco da Gama &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Corinthians &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Atlético MG &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Goiás &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Paysandu &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Criciúma &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Fluminense &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+## Criando a coluna de pontos - com R base
+
+* O mesmo procedimento agora para o time visitante:
+
+
+```r
+tabela1$pontos_visitante &lt;- ifelse(gols_mandante &gt; gols_visitante, 0 , 
+                              ifelse(gols_mandante == gols_visitante,1, 3))
+```
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; home &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; away &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; gols_mandante &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; gols_visitante &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pontos_mandante &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pontos_visitante &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Guarani &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vasco da Gama &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Corinthians &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Atlético MG &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Goiás &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Paysandu &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Criciúma &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Fluminense &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+## Criando a coluna de pontos - com dplyr
+
+* Vamos começar pelos pontos do time que é o mandante do jogo.
+
+
+```r
+tabela2 &lt;- tabela2 |&gt; 
+dplyr::mutate(pontos_mandante = dplyr::case_when(
+    gols_mandante &gt; gols_visitante ~ 3,
+    gols_mandante == gols_visitante ~ 1,
+    TRUE ~ 0), .after = home)
+```
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; home &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pontos_mandante &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; gols_mandante &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; gols_visitante &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; away &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Guarani &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vasco da Gama &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Corinthians &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Atlético MG &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+## Criando a coluna de pontos - com dplyr
+
+* O mesmo procedimento agora para o time visitante:
+
+
+```r
+tabela2 &lt;- tabela2 |&gt; 
+dplyr::mutate(pontos_visitante = dplyr::case_when(
+    gols_mandante &gt; gols_visitante ~ 0,
+    gols_mandante == gols_visitante ~ 1,
+    TRUE ~ 3), .after = away)
+```
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; home &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pontos_mandante &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; gols_mandante &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; gols_visitante &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; away &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pontos_visitante &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Guarani &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vasco da Gama &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+## Reordenando as colunas - com R base
+
+
+```r
+tabela1 &lt;- subset(tabela1, select = c(id_match, season, date, 
+                                      home, pontos_mandante,
+                                      gols_mandante, away,
+                                      pontos_visitante,
+                                      gols_visitante))
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; home &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pontos_mandante &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; gols_mandante &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; away &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pontos_visitante &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; gols_visitante &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Guarani &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vasco da Gama &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+## Reordenando as colunas - com dplyr
+
+* Note que apenas a variável *gols_visitante* não está na posição que gostaríamos.
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; home &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pontos_mandante &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; gols_mandante &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; gols_visitante &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; away &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pontos_visitante &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Guarani &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vasco da Gama &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+* Isso se deve por termos utilizado o argumento *.after* na função *mutate* anteriormente.
+
+* Acrescenta-se que também poderíamos utilizar o argumento *.before*
+---
+
+## Reordenando as colunas - com dplyr
+
+
+```r
+tabela2 &lt;- tabela2 |&gt; 
+  dplyr::relocate(gols_visitante, .after = pontos_visitante) 
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; home &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pontos_mandante &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; gols_mandante &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; away &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pontos_visitante &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; gols_visitante &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Guarani &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vasco da Gama &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+## Pivotear ou não?
+
+&lt;table class="table" style="color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;font-size: 18px;"&gt; id_match &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 18px;"&gt; season &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 18px;"&gt; date &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 18px;"&gt; home &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 18px;"&gt; pontos_mandante &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 18px;"&gt; gols_mandante &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 18px;"&gt; away &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 18px;"&gt; pontos_visitante &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 18px;"&gt; gols_visitante &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Guarani &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vasco da Gama &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+* Note que cada observação deste conjunto de dados é um jogo de 2 times, neste sentido, precisamos duplicar cada linha desta base.
+
+* Só é imprescendível ter uma coluna que guarde qual time foi o mandante e qual foi o visitante.
+
+---
+
+## Duplicando as linhas
+
+
+```r
+aux_mandante &lt;- cbind(tabela1,mando=c("mandante"))
+aux_visitante &lt;- cbind(tabela1,mando=c("visitante"))
+
+tabela1 &lt;- rbind(aux_mandante,aux_visitante)
+
+tabela1 &lt;- tabela1[order(tabela1$id_match, tabela1$mando),]
+```
+
+&lt;table class="table" style="color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; id_match &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; season &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; date &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; home &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; pontos_mandante &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; gols_mandante &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; away &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; pontos_visitante &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; gols_visitante &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; mando &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mandante &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; visitante &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+* Agora precisamos criar duas coluna **time** e **adversario**, de modo a deixar que cada linha represente um clube, na primeira linha **time** será "Athletico PR" e **adversario** será "Grêmio", enquanto na segunda linha isso se inverte, **time** será "Grêmio" e **adversario** será "Athletico PR".
+
+---
+
+## Criando as colunas *time* e *adversario*
+
+
+```r
+time &lt;- ifelse(tabela1$mando=="mandante",tabela1$home,
+               tabela1$away)
+adversario &lt;- ifelse(tabela1$mando=="visitante",tabela1$home,
+                  tabela1$away)
+
+tabela1$home &lt;- time
+tabela1$away &lt;- adversario
+```
+
+&lt;table class="table" style="color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; id_match &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; season &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; date &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; home &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; pontos_mandante &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; gols_mandante &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; away &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; pontos_visitante &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; gols_visitante &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; mando &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mandante &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; visitante &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+## Renomeando as colunas *time* e *adversario*
+
+
+```r
+colnames(tabela1)[colnames(tabela1)=="home"] &lt;- "time"
+colnames(tabela1)[colnames(tabela1)=="away"] &lt;- "adversario"
+```
+
+&lt;table class="table" style="color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; id_match &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; season &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; date &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; time &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; pontos_mandante &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; gols_mandante &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; adversario &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; pontos_visitante &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; gols_visitante &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; mando &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mandante &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; visitante &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Guarani &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vasco da Gama &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mandante &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vasco da Gama &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Guarani &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; visitante &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+## Criando as colunas *gols_favor* e *gols_contra*
+
+
+```r
+gols_favor &lt;- ifelse(tabela1$mando=="mandante", tabela1$gols_mandante,tabela1$gols_visitante)
+
+gols_contra &lt;- ifelse(tabela1$mando=="visitante", tabela1$gols_mandante,tabela1$gols_visitante)
+
+tabela1$gols_mandante &lt;- gols_favor
+tabela1$gols_visitante &lt;- gols_contra
+```
+
+&lt;table class="table" style="color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; id_match &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; season &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; date &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; time &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; pontos_mandante &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; gols_mandante &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; adversario &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; pontos_visitante &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; gols_visitante &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; mando &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mandante &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; visitante &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+---
+
+## Renomeando as colunas *gols_favor* e *gols_contra*
+
+
+```r
+colnames(tabela1)[colnames(tabela1)=="gols_mandante"] &lt;- "gols_favor"
+colnames(tabela1)[colnames(tabela1)=="gols_visitante"] &lt;- "gols_contra"
+```
+
+&lt;table class="table" style="color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; id_match &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; season &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; date &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; time &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; pontos_mandante &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; gols_favor &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; adversario &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; pontos_visitante &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; gols_contra &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; mando &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mandante &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; visitante &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+* Agora precisamos criar uma coluna com os pontos conquistados por cada time.
+
+
+---
+
+## Criando a variável *pontos*
+
+
+```r
+pontos &lt;- ifelse(tabela1$mando=="mandante",tabela1$pontos_mandante,tabela1$pontos_visitante)
+
+tabela1$pontos_mandante &lt;- pontos
+colnames(tabela1)[colnames(tabela1)=="pontos_mandante"] &lt;- "pontos"
+
+tabela1 &lt;- subset(tabela1, select = -c(pontos_visitante))
+```
+
+&lt;table class="table" style="color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; id_match &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; season &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; date &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; time &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; pontos &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; gols_favor &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; adversario &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; gols_contra &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; mando &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mandante &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; visitante &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Guarani &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vasco da Gama &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mandante &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vasco da Gama &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Guarani &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; visitante &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+ 
+---
+## Pivotear ou não?
+
+* Nossa estratégia inicial foi em não pivotear, no entanto, poderíamos ter optador em utilizar a função *pivot_longer*. A base de dados anteriormente estava da seguinte maneira:
+
+&lt;table class="table" style="color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; id_match &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; season &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; date &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; home &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; pontos_mandante &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; gols_mandante &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; away &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; pontos_visitante &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; gols_visitante &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Guarani &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vasco da Gama &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+* Procederemos da mesma forma, porém, com o uso do pacote *tidyr*.
+
+---
+
+## Duplicando as linhas - com tidyr
+
+
+```r
+tabela2 &lt;- tabela2 |&gt; 
+  tidyr::pivot_longer( cols = c(pontos_mandante, pontos_visitante),
+    names_to = "mando", values_to = "pontos") |&gt; 
+  dplyr::mutate(mando = stringr::str_remove(mando, "pontos_"))
+```
+&lt;table class="table" style="color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; id_match &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; season &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; date &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; home &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; gols_mandante &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; away &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; gols_visitante &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; mando &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; pontos &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mandante &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; visitante &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+* É possível observar que duplicamos as linhas igual feito anteriormente, porém, já resolvemos a questão dos pontos.
+
+* Agora precisamos criar duas coluna time e adversario, de modo a deixar que cada linha represente um clube.
+
+---
+
+## Criando as colunas *time* e *adversario*
+
+
+```r
+tabela2 &lt;- tabela2 |&gt; 
+  dplyr::mutate(time = ifelse(mando == "mandante",home,away),
+    adversario = ifelse(mando == "mandante",away,home), .after = date) |&gt; 
+  dplyr::select(-c(home,away))
+```
+
+&lt;table class="table" style="color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; id_match &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; season &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; date &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; time &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; adversario &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; gols_mandante &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; gols_visitante &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; mando &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; pontos &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mandante &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; visitante &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Guarani &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vasco da Gama &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mandante &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vasco da Gama &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Guarani &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; visitante &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+ 
+---
+
+## Criando as colunas *gols_favor* e *gols_contra*
+
+
+```r
+tabela2 &lt;- tabela2 |&gt; 
+dplyr::mutate(gols_favor = ifelse(mando == "mandante", gols_mandante, 
+                                  gols_visitante),
+    gols_contra = ifelse(mando == "mandante", gols_visitante, gols_mandante)) |&gt; 
+  dplyr::select(-c(gols_mandante, gols_visitante))
+```
+
+&lt;table class="table" style="color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; id_match &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; season &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; date &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; time &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; adversario &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; mando &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; pontos &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; gols_favor &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; gols_contra &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mandante &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; visitante &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+## Comparando as tabelas
+
+* Tabela 1
+&lt;table class="table" style="color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; id_match &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; season &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; date &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; time &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; pontos &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; gols_favor &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; adversario &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; gols_contra &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; mando &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mandante &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; visitante &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Guarani &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vasco da Gama &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mandante &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+* Tabela 2
+
+&lt;table class="table" style="color: black; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; id_match &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; season &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; date &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; time &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; adversario &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; mando &lt;/th&gt;
+   &lt;th style="text-align:right;font-size: 12px;"&gt; pontos &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; gols_favor &lt;/th&gt;
+   &lt;th style="text-align:left;font-size: 12px;"&gt; gols_contra &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mandante &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Grêmio &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Athletico PR &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; visitante &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2003 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2003-03-29 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Guarani &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Vasco da Gama &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mandante &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
