@@ -97,7 +97,14 @@ class:
 install.packages("tidyverse")
 ```
 
-- E faça o dowload do arquivo inicial [aqui](https://raw.githubusercontent.com/caio-azevedo/oficina_futebol/master/R/auxiliar_futebol.R)
+- Faça o dowload do arquivo inicial [aqui](https://github.com/caio-azevedo/auxiliar_futebol/archive/refs/heads/main.zip)
+
+- Instale os seguintes pacotes:
+
+```{r echo=TRUE, eval=FALSE}
+install.packages("tidyverse")
+```
+
 ---
 
 # A base de dados
