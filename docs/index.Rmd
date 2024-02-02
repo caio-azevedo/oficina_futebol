@@ -71,8 +71,6 @@ url <- "https://caio-azevedo.github.io/oficina_futebol"
 plot(qrcode::qr_code(url, ecl = 'M'), col = c('white', '#261373'))
 
 ```
-
-- Ou clique aqui [neste link](https://caio-azevedo.github.io/oficina_futebol/).
 ---
 class: middle, animated slideInRight fadeOutLeft, animated slideInRight fadeOutLeft
 
@@ -99,6 +97,7 @@ class:
 install.packages("tidyverse")
 ```
 
+- E faça o dowload do arquivo inicial [aqui](https://raw.githubusercontent.com/caio-azevedo/oficina_futebol/master/R/auxiliar_futebol.R)
 ---
 
 # A base de dados
