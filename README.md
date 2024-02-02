@@ -2,5 +2,5 @@
 
 Para acessar os slides [clique aqui](https://caio-azevedo.github.io/oficina_futebol/).
 
-ou aponte sua câmera para este ![QR CODE](qrcode.png)
+ou aponte sua câmera para este ![QR CODE](/qrcode.png)
 
