@@ -29,26 +29,12 @@ library(tidyverse)
 
 ```
 
-
-
 ```{r xaringan-scribble, echo=FALSE}
 xaringanExtra::use_scribble()
 ```
 
 ```{r share-again, echo=FALSE}
 xaringanExtra::use_share_again()
-```
-
-```{r xaringan-logo, echo=FALSE}
-xaringan_logo <- file.path(
-  "https://raw.githubusercontent.com/rstudio/hex-stickers/master",
-  "PNG/xaringan.png"
-)
-xaringanExtra::use_logo(
-  image_url = xaringan_logo, 
-  position = xaringanExtra::css_position(top = '1em', right = '1em', 
-                                         left = NULL, bottom = NULL)
-)
 ```
 
 ```{r xaringanExtra-clipboard, echo=FALSE}
@@ -64,6 +50,7 @@ xaringanExtra::use_animate_css(xaringan = FALSE)
 xaringanExtra::use_panelset()
 
 ```
+
 ```{r xaringan-extra-styles, echo=FALSE}
 xaringanExtra::use_extra_styles(
   hover_code_line = TRUE,         
@@ -85,6 +72,7 @@ plot(qrcode::qr_code(url, ecl = 'M'), col = c('white', '#261373'))
 
 ```
 
+- Ou clique aqui [neste link](https://caio-azevedo.github.io/oficina_futebol/).
 ---
 class: middle, animated slideInRight fadeOutLeft, animated slideInRight fadeOutLeft
 
@@ -94,6 +82,22 @@ class: middle, animated slideInRight fadeOutLeft, animated slideInRight fadeOutL
 
 * Dados provenientes dos esportes podem fornecer informações importantes sobre o comportamento do mercado de trabalho, sendo valioso laboratório. (Szymanski, 2003; Kahn, 2000)
 
+
+---
+
+class: 
+
+# Pré-requisitos
+
+- R: faça o download da versão mais recente [neste link](https://cran.r-project.org/).
+
+- RStudio: faça o download da versão mais recente [neste link](https://www.rstudio.com/products/rstudio/download/).
+
+- Instale os seguintes pacotes:
+
+```{r echo=TRUE, eval=FALSE}
+install.packages("tidyverse")
+```
 
 ---
 
@@ -111,6 +115,7 @@ knitr::kable(head(dados), format = 'html')
 
 ---
 
+
 # Objetivo
 
 * Nosso objetivo então é transformar esse conjunto de dados, de forma a fornecer a colocação de cada time rodada por rodada, durante as temporadas de 2003 até a mais recente que foi a temporada 2023.
@@ -120,6 +125,7 @@ knitr::kable(head(dados), format = 'html')
 * Para esta finalidade faremos uso da programação em linguagem R.
 
 ---
+
 
 # Manipulação de dados
 
@@ -134,6 +140,8 @@ knitr::kable(head(dados), format = 'html')
 
 ---
 
+
+
 # Manipulação de dados
 
 * A forma que escrevemos nosso código está fortemente relacionada a nossa prática enquanto usuários.
@@ -145,6 +153,8 @@ knitr::kable(head(dados), format = 'html')
 * Aqui iremos tentar evidenciar isso, e portanto, fazer de duas formas: uma onde iremos utilizar um número menor de ferramentas, aproximando-se de um usuário novo e a outra fazendo uso de um conjunto maior de possibilidades da linguagem R, propiciando a comparação entre estas.
 
 ---
+
+
 
 # Início
 
@@ -224,7 +234,7 @@ glimpse(tabela1)
 
 * com dplyr
 ```{r}
-tabela1 <- tabela1 |> 
+tabela2 <- tabela2 |> 
   dplyr::mutate(gols_mandante = as.numeric(gols_mandante),
                 gols_visitante = as.numeric(gols_visitante))
 ```
@@ -345,7 +355,7 @@ knitr::kable(head(tabela2[4:9], n = 2L), format = 'html')
 
 ---
 
-## Pivotear ou não?
+## Pivotar ou não?
 
 ```{r, echo=F}
 library(kableExtra)
@@ -478,9 +488,9 @@ knitr::kable(head(tabela1, n = 4L), format = 'html',
 
  
 ---
-## Pivotear ou não?
+## Pivotar ou não?
 
-* Nossa estratégia inicial foi em não pivotear, no entanto, poderíamos ter optador em utilizar a função *pivot_longer*. A base de dados anteriormente estava da seguinte maneira:
+* Nossa estratégia inicial foi em não pivotar, no entanto, poderíamos ter optador em utilizar a função *pivot_longer*. A base de dados anteriormente estava da seguinte maneira:
 
 ```{r, echo=F}
 library(kableExtra)
@@ -564,3 +574,126 @@ knitr::kable(head(tabela2, n = 3L), format = 'html') |>
   kable_styling() |> 
   row_spec(row = 0, extra_css = "font-size: 12px;")
 ```
+
+
+
+---
+
+## Criando a coluna *rodada* - dplyr
+
+```{r}
+tabela2 <- tabela2 |> 
+dplyr::arrange(season, time, date) |>
+  dplyr::group_by(season, time) |>
+  dplyr::mutate(rodada = dplyr::row_number(),.after = season)
+```
+
+```{r, echo=F}
+knitr::kable(head(tabela2, n = 4L), format = 'html') |> 
+  kable_styling() |> 
+  row_spec(row = 0, extra_css = "font-size: 12px;")
+```
+
+---
+
+## Criando a coluna *pontos acumulado* - dplyr
+
+```{r}
+tabela2 <- tabela2 |> 
+dplyr::mutate(pontos_acum = case_when(time == lag(time,
+                        default = first(time)) ~ cumsum(pontos),
+                        TRUE ~ pontos))
+```
+
+```{r, echo=F}
+knitr::kable(head(tabela2, n = 4L), format = 'html') |> 
+  kable_styling() |> 
+  row_spec(row = 0, extra_css = "font-size: 12px;")
+```
+---
+
+## Criando a coluna *gols a favor acumulado* - dplyr
+
+```{r}
+tabela2 <- tabela2 |> 
+dplyr::mutate(gp_acum = case_when(time == lag(time,
+                                  default = first(time)) ~ cumsum(gols_favor),
+                                  TRUE ~ gols_favor))
+```
+
+```{r, echo=F}
+knitr::kable(head(tabela2[,-1], n = 4L), format = 'html') |> 
+  kable_styling() |> 
+  row_spec(row = 0, extra_css = "font-size: 12px;")
+```
+---
+
+## Criando a coluna *gols contra acumulado* - dplyr
+
+```{r}
+tabela2 <- tabela2 |> 
+dplyr::mutate(gc_acum = case_when(time == lag(time, default = first(time)) ~
+                                    cumsum(gols_contra),
+                                  TRUE ~ gols_contra))
+```
+
+```{r, echo=F}
+knitr::kable(head(tabela2[,-c(1:2)], n = 4L), format = 'html') |> 
+  kable_styling() |> 
+  row_spec(row = 0, extra_css = "font-size: 12px;")
+```
+
+---
+
+## Criando as colunas de *vitória e números de vitórias* - dplyr
+
+```{r}
+tabela2 <- tabela2 |> 
+dplyr::mutate(vitoria = ifelse(pontos==3,1,0),.before = pontos) |>
+  dplyr::mutate(num_vit = case_when(time==lag(time, default = first(time)) ~
+    cumsum(vitoria), TRUE ~ vitoria)) 
+```
+
+```{r, echo=F}
+knitr::kable(head(tabela2[,-c(1:4)], n = 4L), format = 'html') |> 
+  kable_styling() |> 
+  row_spec(row = 0, extra_css = "font-size: 12px;")
+```
+
+---
+
+## Criando as colunas de *saldo e saldo acumulado* - dplyr
+
+```{r}
+tabela2 <- tabela2 |> 
+dplyr::mutate(saldo = gols_favor - gols_contra, .before = pontos_acum) |>
+  dplyr::mutate(saldo_acum= case_when(time==lag(time, default = first(time)) ~
+    cumsum(saldo), TRUE ~ saldo))
+```
+
+```{r, echo=F}
+knitr::kable(head(tabela2[,-c(1:4)], n = 4L), format = 'html') |> 
+  kable_styling() |> 
+  row_spec(row = 0, extra_css = "font-size: 12px;")
+```
+
+---
+
+## Criando a coluna de *colocação* - dplyr
+
+```{r}
+tabela2 <- tabela2 |> 
+  dplyr::group_by(season) |>
+  dplyr::arrange(desc(season), rodada, desc(pontos_acum),
+                 desc(num_vit),desc(saldo_acum), desc(gp_acum)) |>
+  dplyr::group_by(season,rodada) |>
+  dplyr::mutate(colocacao = dplyr::row_number())
+```
+
+```{r, echo=F}
+knitr::kable(head(tabela2[,-c(1:4)], n = 4L), format = 'html') |> 
+  kable_styling() |> 
+  row_spec(row = 0, extra_css = "font-size: 12px;")
+```
+
+
