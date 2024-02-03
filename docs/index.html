@@ -4,7 +4,7 @@
     <title>Oficina Futebol com o R</title>
     <meta charset="utf-8" />
     <meta name="author" content="Caio O. Azevedo" />
-    <meta name="date" content="2024-02-02" />
+    <meta name="date" content="2024-02-03" />
     <script src="libs/header-attrs-2.25/header-attrs.js"></script>
     <script src="libs/fabric-4.3.1/fabric.min.js"></script>
     <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
@@ -41,13 +41,14 @@ class: center, middle, inverse, title-slide
 ### NuPACE
 ]
 .date[
-### 2024-02-02
+### 2024-02-03
 ]
 
 ---
 
 
 class: center, middle, animated slideInRight fadeOutLeft, animated slideInRight fadeOutLeft
+
 
 
 
@@ -106,13 +107,6 @@ class:
 - R: faça o download da versão mais recente [neste link](https://cran.r-project.org/).
 
 - RStudio: faça o download da versão mais recente [neste link](https://www.rstudio.com/products/rstudio/download/).
-
-- Instale os seguintes pacotes:
-
-
-```r
-install.packages("tidyverse")
-```
 
 - Faça o dowload do arquivo inicial [aqui](https://github.com/caio-azevedo/auxiliar_futebol/archive/refs/heads/main.zip)
 
@@ -210,11 +204,11 @@ install.packages("tidyverse")
 
 * Assim como em tarefas do dia a dia, existem diversas formas de escrever o código para que possamos alcançar nosso objetivo.
 
-* É comum escutar que o "melhor" código  ou mais "eficiente" é aquele que possui o menor número de linhas de comando, no entanto, isso não é unanimidade, visto que se alcançarmos o objetivo, independente da forma, fomos eficientes.
+* É comum escutar que o "melhor" código é aquele que possui o menor número de linhas de comando, no entanto, isso não é unanimidade, visto que se alcançarmos o objetivo, independente da forma, fomos eficazes no alcance de nossa meta.
 
 * No entanto, ter um "código limpo" é de fato desejável, mas isso não está estritamente relacionado ao número de linhas de comando, mas sim com a questão de organização e estruturação.
 
-* É neste sentido, que então podemos dizer que códigos mais reduzidos facilitam na organização e a estruturação do script.
+* É neste sentido, que então podemos dizer que códigos mais reduzidos facilitam na organização e a estruturação do script, e por consequência são mais eficientes.
 
 
 ---
@@ -1551,6 +1545,18 @@ dplyr::mutate(gols_favor = ifelse(mando == "mandante", gols_mandante,
 &lt;/table&gt;
 
 
+---
+## Vamos praticar!
+
+* ### Usando o dplyr crie as colunas:
+  * rodada;
+  * pontos acumulado;
+  * gols a favor acumulado;
+  * gols contra acumulado;
+  * vitória (0 ou 1);
+  * número de vitórias;
+  * saldo de gols acumulado;
+  * colocação.
 
 ---
 
@@ -2073,6 +2079,9 @@ tabela2 &lt;- tabela2 |&gt;
   dplyr::mutate(colocacao = dplyr::row_number())
 ```
 
+---
+## Pronto! Concluímos nosso objetivo!
+
 &lt;table class="table" style="color: black; margin-left: auto; margin-right: auto;"&gt;
  &lt;thead&gt;
   &lt;tr&gt;
@@ -2157,9 +2166,40 @@ tabela2 &lt;- tabela2 |&gt;
    &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
   &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Bragantino &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Bahia &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mandante &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Corinthians &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Cruzeiro &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; mandante &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+  &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

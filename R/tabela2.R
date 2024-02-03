@@ -103,14 +103,7 @@ dplyr::mutate(saldo = gols_favor - gols_contra, .before = pontos_acum) |>
                  desc(pontos_acum),
                  desc(num_vit),
                  desc(saldo_acum),
-                 desc(gp_acum))
+                 desc(gp_acum))|>
+  dplyr::group_by(season,rodada) |>
+  dplyr::mutate(colocacao = dplyr::row_number())
 
-  tabela2 <- tabela2 |>
-  dplyr::group_by(season,rodada)
-
-tabela2$duplicada <-  duplicated.data.frame(tabela2[,c(13:17)])
-
-tabela2 <- tabela2 |>
-  dplyr::mutate(colocacao = ifelse(duplicada==FALSE,
-                                   dplyr::row_number(),
-                                   lag(row_number())))

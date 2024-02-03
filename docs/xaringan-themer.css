@@ -44,20 +44,21 @@
 
   /* Colors */
   --text-color: #000000;
-  --header-color: #af1313;
+  --header-color: #261373;
   --background-color: #FFFFFF;
-  --link-color: #af1313;
-  --text-bold-color: #af1313;
+  --link-color: #261373;
+  --text-bold-color: #261373;
   --code-highlight-color: rgba(255,255,0,0.5);
-  --inverse-text-color: #af1313;
+  --inverse-text-color: #261373;
   --inverse-background-color: #a7a3b4;
-  --inverse-header-color: #af1313;
-  --inverse-link-color: #af1313;
-  --title-slide-background-color: #af1313;
+  --inverse-header-color: #261373;
+  --inverse-link-color: #261373;
+  --title-slide-background-color: #323040;
+  --title-slide-background: url("img/capa.png");
   --title-slide-text-color: #FFFFFF;
-  --header-background-color: #af1313;
+  --header-background-color: #261373;
   --header-background-text-color: #FFFFFF;
-  --primary: #af1313;
+  --primary: #261373;
   --secondary: #a7a3b4;
   --white: #FFFFFF;
   --black: #000000;
@@ -126,10 +127,8 @@ a, a > code {
   background-color: var(--code-highlight-color);
 }
 .inverse {
-  background-image: url(capa.png);
-  background-size: cover;
-  /*background-color: var(--inverse-background-color);
-  /*color: var(--inverse-text-color);
+  background-color: var(--inverse-background-color);
+  color: var(--inverse-text-color);
   
 }
 .inverse h1, .inverse h2, .inverse h3 {
@@ -143,7 +142,7 @@ a, a > code {
 }
 .title-slide {
   background-color: var(--title-slide-background-color);
-  background-image: url("img/hex-xaringan.png");
+  background-image: url("img/capa.png");
   background-size: 300;
   background-position: right;
   vertical-align: bottom !important; 

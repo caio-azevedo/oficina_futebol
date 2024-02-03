@@ -19,6 +19,7 @@ output:
 
 class: center, middle, animated slideInRight fadeOutLeft, animated slideInRight fadeOutLeft
 
+
 ```{r setup, include=FALSE}
 
 knitr::opts_chunk$set(echo = TRUE, message = FALSE,
@@ -91,12 +92,6 @@ class:
 
 - RStudio: faça o download da versão mais recente [neste link](https://www.rstudio.com/products/rstudio/download/).
 
-- Instale os seguintes pacotes:
-
-```{r echo=TRUE, eval=FALSE}
-install.packages("tidyverse")
-```
-
 - Faça o dowload do arquivo inicial [aqui](https://github.com/caio-azevedo/auxiliar_futebol/archive/refs/heads/main.zip)
 
 - Instale os seguintes pacotes:
@@ -137,11 +132,11 @@ knitr::kable(head(dados), format = 'html')
 
 * Assim como em tarefas do dia a dia, existem diversas formas de escrever o código para que possamos alcançar nosso objetivo.
 
-* É comum escutar que o "melhor" código  ou mais "eficiente" é aquele que possui o menor número de linhas de comando, no entanto, isso não é unanimidade, visto que se alcançarmos o objetivo, independente da forma, fomos eficientes.
+* É comum escutar que o "melhor" código é aquele que possui o menor número de linhas de comando, no entanto, isso não é unanimidade, visto que se alcançarmos o objetivo, independente da forma, fomos eficazes no alcance de nossa meta.
 
 * No entanto, ter um "código limpo" é de fato desejável, mas isso não está estritamente relacionado ao número de linhas de comando, mas sim com a questão de organização e estruturação.
 
-* É neste sentido, que então podemos dizer que códigos mais reduzidos facilitam na organização e a estruturação do script.
+* É neste sentido, que então podemos dizer que códigos mais reduzidos facilitam na organização e a estruturação do script, e por consequência são mais eficientes.
 
 
 ---
@@ -582,6 +577,18 @@ knitr::kable(head(tabela2, n = 3L), format = 'html') |>
 ```
 
 
+---
+## Vamos praticar!
+
+* ### Usando o dplyr crie as colunas:
+  * rodada;
+  * pontos acumulado;
+  * gols a favor acumulado;
+  * gols contra acumulado;
+  * vitória (0 ou 1);
+  * número de vitórias;
+  * saldo de gols acumulado;
+  * colocação.
 
 ---
 
@@ -696,10 +703,12 @@ tabela2 <- tabela2 |>
   dplyr::mutate(colocacao = dplyr::row_number())
 ```
 
+---
+## Pronto! Concluímos nosso objetivo!
+
 ```{r, echo=F}
-knitr::kable(head(tabela2[,-c(1:4)], n = 4L), format = 'html') |> 
+knitr::kable(head(tabela2[,-c(1:4)], n = 6L), format = 'html') |> 
   kable_styling() |> 
   row_spec(row = 0, extra_css = "font-size: 12px;")
 ```
-
 
